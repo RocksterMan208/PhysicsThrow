@@ -3,53 +3,34 @@
 #include "raylib.h"
 #include "raymath.h"
 
-#include "mouse.hpp"
+#include "item.hpp"
 
 int main()
 {
     float screenWidth = 800;
     float screenHeight = 600;
     float size = 40;
+    Vector2 mousePos = GetMousePosition();
 
 
     InitWindow(screenWidth, screenHeight, "ThrowPhysics");
     SetTargetFPS(60);
 
-    Rectangle object(0,0,size,size);
-
-    Vector2 dragOffset;
-    bool interacting = false;
+    Shape player(100,100,size, RED);
     
     while (!WindowShouldClose())
     {
-        Vector2 mousePos = GetMousePosition();
+        mousePos = GetMousePosition();
 
+        std::cout << mousePos.x << " || " << mousePos.y << std::endl;
 
-        
+        player.update(mousePos);
+
         BeginDrawing();
         ClearBackground(WHITE);
 
+        player.render();
 
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-        {
-            if (CheckCollisionPointRec(mousePos, object))
-            {
-                interacting = true;
-                dragOffset.x = mousePos.x - object.x;
-                dragOffset.y = mousePos.y - object.y;
-            }
-        }
-
-        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) interacting = false;
-
-        if (interacting)
-        {
-            object.x = mousePos.x - dragOffset.x;
-            object.y = mousePos.y - dragOffset.y;
-        }
-
-        DrawRectangleRec(object,RED);
-        
         EndDrawing();
     }
     return 0;
