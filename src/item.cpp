@@ -5,6 +5,7 @@ Shape::Shape(float x, float y, float size, Color color)
     playerColor = color;
     pos = {x, y};
     playerSize = size;
+    originalPos = {x, y};
 }
 
 void Shape::update(float &gravity, Rectangle floor)
@@ -14,6 +15,13 @@ void Shape::update(float &gravity, Rectangle floor)
     float dt = GetFrameTime();
     
     Vector2 mouse = GetMousePosition();
+
+    if (IsKeyPressed(KEY_R))
+    {
+        pos = originalPos;
+        velocity = {0,0};
+        falling = true;
+    }
 
 
     if (falling)
@@ -61,4 +69,9 @@ void Shape::update(float &gravity, Rectangle floor)
 void Shape::render()
 {
     DrawRectangleV(pos, {playerSize, playerSize}, playerColor);
+}
+
+void Shape::getPos(Vector2 textPos, float fontSize, Color textColor)
+{
+    DrawText(TextFormat("Pos: X=%.1f Y=%.1f",pos.x,pos.y), textPos.x, textPos.y,fontSize,textColor);
 }

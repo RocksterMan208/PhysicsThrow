@@ -9,6 +9,7 @@ class Shape
 {
     public:
     Vector2 pos;
+    Vector2 originalPos;
     
     float playerSize;
     Color playerColor;
@@ -18,7 +19,7 @@ class Shape
     bool dragging = false;
     Vector2 dragOffset;
     
-    Vector2 velocity;
+    Vector2 velocity = {0,0};
     
     bool falling = true;
 
@@ -27,4 +28,6 @@ class Shape
     void update(float &gravity, Rectangle floor);
 
     void render();
+
+    void getPos(Vector2 textPos, float fontSize, Color textColor);
 };

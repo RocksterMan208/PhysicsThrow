@@ -30,6 +30,7 @@ int main()
         DrawRectangleRec(floor,PURPLE);
 
         Box.render();
+        Box.getPos({0,0},20,BLACK);
 
         EndDrawing();
     }
