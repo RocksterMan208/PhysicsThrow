@@ -4,9 +4,9 @@ Shape::Shape(float x, float y, float size)
 {
     playerColor = 
     {
-        (unsigned char)GetRandomValue(50,255),
-        (unsigned char)GetRandomValue(50,255),
-        (unsigned char)GetRandomValue(50,255),
+        (unsigned char)GetRandomValue(50,225),
+        (unsigned char)GetRandomValue(50,225),
+        (unsigned char)GetRandomValue(50,225),
         255
     };
     
@@ -128,7 +128,7 @@ void Shape::doFriction(bool doFriction, float friction)
 
 void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
-    const float numberIterations = 1; // note: changing will make the collisions work better, just amplifies "compression" issue.
+    const float numberIterations = 4; // note: changing will make the collisions work better, just amplifies "compression" issue.
     
     for (int k = 0; k < numberIterations; k++)
     {
