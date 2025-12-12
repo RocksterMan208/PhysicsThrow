@@ -10,26 +10,29 @@ int main()
     float screenWidth = 800;
     float screenHeight = 600;
     float size = 40;
+    float gravity = 10;
     Vector2 mousePos = GetMousePosition();
 
 
     InitWindow(screenWidth, screenHeight, "ThrowPhysics");
     SetTargetFPS(60);
 
-    Shape player(100,100,size, RED);
+    Shape Box(100,100,size, RED);
     
     while (!WindowShouldClose())
     {
         mousePos = GetMousePosition();
 
-        std::cout << mousePos.x << " || " << mousePos.y << std::endl;
 
-        player.update(mousePos);
+        Box.update(mousePos, gravity);
 
         BeginDrawing();
         ClearBackground(WHITE);
 
-        player.render();
+        DrawRectangle(0,500,800,100,PURPLE);
+
+        Box.render();
+        Box.IsCollide();
 
         EndDrawing();
     }

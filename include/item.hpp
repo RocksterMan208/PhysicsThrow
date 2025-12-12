@@ -14,8 +14,14 @@ class Shape
     Vector2 mouse;
     bool dragging = false;
     Vector2 dragOffset;
+    Vector2 velocity;
+    bool falling = true;
 
     Shape(float x, float y, float size, Color color);
-    void update(Vector2 &mouse);
+
+    void update(Vector2 &mouse, float &gravity);
+
+    bool IsCollide();
+
     void render();
 };
