@@ -8,11 +8,11 @@ By the end of this project, I aim to have an application where you can draw poly
 I am currently developing a center of rotation and a center of mass function which would allow the placement of the mouse to actually matter.
 And after this I plan on creating a movement system where you can press either A or D to freely rotate the shape.
 
-# Here's a current screenshot of the project
+# Here's a current snippet of the project
 
 (Do not worry I am planning to add UI features and such)
 
-<img width="810" height="634" alt="image" src="https://github.com/user-attachments/assets/718443cb-177f-4506-b9c2-fe3e925f32a2" />
+https://github.com/user-attachments/assets/c983828b-8e15-4867-a5fc-cbc2c856f269
 
 # If you want to build it for yourself:
 (You do need some dependencies)
