@@ -1,6 +1,6 @@
 # What is this project?
 
-PhysicsThrow is a test project in which I will be experimenting with physics calculations and will allow me to learn C++ (this is my second project I've made so far in C++).
+PhysicsThrow is a test project in which I will be experimenting with physics calculations and will allow me to learn C++ (this is my second project I've made so far in C++) and Object Oriented Programming..
 By the end of this project, I aim to have an application where you can draw polygons and have it so when you hold down left click, you interact with the object and can apply physics to it.
 
 # Where are we now?
@@ -15,7 +15,7 @@ And after this I plan on creating a movement system where you can press either A
 <img width="810" height="634" alt="image" src="https://github.com/user-attachments/assets/718443cb-177f-4506-b9c2-fe3e925f32a2" />
 
 # If you want to build it for yourself:
-## You do actually require some dependencies.
+(You do need some dependencies)
 
 ### You need to install raylib and g++ and be on a Linux operating system.
 If you are on Arch Linux, like me, the commands are:
@@ -29,3 +29,11 @@ If you are on a Debian based Linux (e.g Ubuntu):
 sudo apt install g++
 sudo apt install libraylib-dev
 ```
+## Now, whilst in the folder:
+There is a makefile already inside of the folder, so it should be easy to run.
+
+Simply do:
+```
+make run
+```
+And the code will compile and run automatically.
