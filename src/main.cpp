@@ -12,11 +12,13 @@ int main()
     float size = 40;
     float gravity = 981;
 
+    std::string objects = {"Box"};
+
     Rectangle floor = {0,520,800,80};
 
 
     InitWindow(screenWidth, screenHeight, "ThrowPhysics");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 
     Shape Box(100,100,size, RED);
 
@@ -30,6 +32,7 @@ int main()
         DrawRectangleRec(floor,PURPLE);
 
         Box.render();
+        Box.reset();
         Box.getPos({0,0},20,BLACK);
 
         EndDrawing();

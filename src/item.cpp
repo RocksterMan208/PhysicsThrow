@@ -16,26 +16,19 @@ void Shape::update(float &gravity, Rectangle floor)
     
     Vector2 mouse = GetMousePosition();
 
-    if (IsKeyPressed(KEY_R))
-    {
-        pos = originalPos;
-        velocity = {0,0};
-        falling = true;
-    }
-
-
-    if (falling)
+    if (!grabbed)
     {
         velocity.y += gravity * dt;
-        pos.x += velocity.x * dt;
         pos.y += velocity.y * dt;
+        pos.x += velocity.x * dt;
     }
+
 
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         if (CheckCollisionPointRec(mouse, playerRec))
         {
-            falling = false;
+            grabbed = true;
             dragging = true;
             dragOffset.x = mouse.x - pos.x;
             dragOffset.y = mouse.y - pos.y;
@@ -53,7 +46,7 @@ void Shape::update(float &gravity, Rectangle floor)
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
     {
         dragging = false;
-        falling = true;
+        grabbed = false;
     }
 
     Rectangle colBox = {pos.x,pos.y,playerSize,playerSize};
@@ -61,8 +54,21 @@ void Shape::update(float &gravity, Rectangle floor)
     if (CheckCollisionRecs(colBox, floor))
     {
         pos.y = floor.y - playerSize;
-        velocity = {0,0};
-        falling = false;
+        velocity.y = 0;
+
+        float friction = 2000;
+        
+        if (velocity.x > 0)
+        {
+            velocity.x -= friction * dt;
+            if (velocity.x < 0) velocity.x = 0;
+        }
+        else if (velocity.x < 0)
+        {
+            velocity.x += friction * dt;
+            if (velocity.x > 0) velocity.x = 0;
+        }
+
     }
 }
 
@@ -74,4 +80,14 @@ void Shape::render()
 void Shape::getPos(Vector2 textPos, float fontSize, Color textColor)
 {
     DrawText(TextFormat("Pos: X=%.1f Y=%.1f",pos.x,pos.y), textPos.x, textPos.y,fontSize,textColor);
+}
+
+void Shape::reset()
+{
+    if (IsKeyPressed(KEY_R))
+    {
+        pos = originalPos;
+        velocity = {0,0};
+        grabbed = false;
+    }
 }

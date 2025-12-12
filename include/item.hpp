@@ -21,7 +21,7 @@ class Shape
     
     Vector2 velocity = {0,0};
     
-    bool falling = true;
+    bool grabbed = false;
 
     Shape(float x, float y, float size, Color color);
 
@@ -30,4 +30,6 @@ class Shape
     void render();
 
     void getPos(Vector2 textPos, float fontSize, Color textColor);
+
+    void reset();
 };
