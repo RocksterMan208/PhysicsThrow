@@ -12,7 +12,7 @@ And after this I plan on creating a movement system where you can press either A
 
 (Do not worry I am planning to add UI features and such)
 
-https://github.com/user-attachments/assets/c983828b-8e15-4867-a5fc-cbc2c856f269
+https://github.com/user-attachments/assets/b704e89d-fbf5-4f9a-b77e-04533e37eb53
 
 # If you want to build it for yourself:
 (You do need some dependencies)
