@@ -10,8 +10,7 @@ int main()
     float screenWidth = 800;
     float screenHeight = 600;
     float size = 40;
-    float gravity = 10;
-    Vector2 mousePos = GetMousePosition();
+    float gravity = 981;
 
     Rectangle floor = {0,520,800,80};
 
@@ -23,10 +22,7 @@ int main()
 
     while (!WindowShouldClose())
     {
-        mousePos = GetMousePosition();
-
-
-        Box.update(mousePos, gravity,floor);
+        Box.update(gravity,floor);
 
         BeginDrawing();
         ClearBackground(WHITE);

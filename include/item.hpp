@@ -24,7 +24,7 @@ class Shape
 
     Shape(float x, float y, float size, Color color);
 
-    void update(Vector2 &mouse, float &gravity, Rectangle floor);
+    void update(float &gravity, Rectangle floor);
 
     void render();
 };
