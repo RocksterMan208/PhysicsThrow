@@ -37,3 +37,9 @@ Simply do:
 make run
 ```
 And the code will compile and run automatically.
+ 
+ 
+ 
+ 
+ 
+<sup> I use Arch btw <sup>
