@@ -14,4 +14,18 @@ And after this I plan on creating a movement system where you can press either A
 
 <img width="810" height="634" alt="image" src="https://github.com/user-attachments/assets/718443cb-177f-4506-b9c2-fe3e925f32a2" />
 
+# If you want to build it for yourself:
+## You do actually require some dependencies.
 
+### You need to install raylib and g++ and be on a Linux operating system.
+If you are on Arch Linux, like me, the commands are:
+```
+sudo pacman -S g++
+sudo pacman -S raylib
+```
+
+If you are on a Debian based Linux (e.g Ubuntu):
+```
+sudo apt install g++
+sudo apt install libraylib-dev
+```
