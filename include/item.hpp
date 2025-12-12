@@ -9,19 +9,22 @@ class Shape
 {
     public:
     Vector2 pos;
+    
     float playerSize;
     Color playerColor;
+    
     Vector2 mouse;
+    
     bool dragging = false;
     Vector2 dragOffset;
+    
     Vector2 velocity;
+    
     bool falling = true;
 
     Shape(float x, float y, float size, Color color);
 
-    void update(Vector2 &mouse, float &gravity);
-
-    bool IsCollide();
+    void update(Vector2 &mouse, float &gravity, Rectangle floor);
 
     void render();
 };

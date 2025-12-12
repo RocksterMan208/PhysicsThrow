@@ -13,26 +13,27 @@ int main()
     float gravity = 10;
     Vector2 mousePos = GetMousePosition();
 
+    Rectangle floor = {0,520,800,80};
+
 
     InitWindow(screenWidth, screenHeight, "ThrowPhysics");
     SetTargetFPS(60);
 
     Shape Box(100,100,size, RED);
-    
+
     while (!WindowShouldClose())
     {
         mousePos = GetMousePosition();
 
 
-        Box.update(mousePos, gravity);
+        Box.update(mousePos, gravity,floor);
 
         BeginDrawing();
         ClearBackground(WHITE);
 
-        DrawRectangle(0,500,800,100,PURPLE);
+        DrawRectangleRec(floor,PURPLE);
 
         Box.render();
-        Box.IsCollide();
 
         EndDrawing();
     }

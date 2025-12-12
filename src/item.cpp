@@ -7,11 +7,12 @@ Shape::Shape(float x, float y, float size, Color color)
     playerSize = size;
 }
 
-void Shape::update(Vector2 &mouse, float &gravity)
+void Shape::update(Vector2 &mouse, float &gravity, Rectangle floor)
 {
     Rectangle playerRec = {pos.x, pos.y, playerSize, playerSize};
 
     float dt = GetFrameTime();
+
 
     if (falling)
     {
@@ -27,27 +28,31 @@ void Shape::update(Vector2 &mouse, float &gravity)
             dragging = true;
             dragOffset.x = mouse.x - pos.x;
             dragOffset.y = mouse.y - pos.y;
-            velocity = {0,0};
         }
     }
 
-    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-    {
-        dragging = false;
-        falling = true;
-    }
 
     if (dragging)
     {
         pos.x = mouse.x - dragOffset.x;
         pos.y = mouse.y - dragOffset.y;
     }
-}
 
-bool Shape::IsCollide()
-{
-    
-    return true;
+    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+    {
+        dragging = false;
+        falling = true;
+        velocity = {0,0};
+    }
+
+    Rectangle colBox = {pos.x,pos.y,playerSize,playerSize};
+
+    if (CheckCollisionRecs(colBox, floor))
+    {
+        pos.y = floor.y - playerSize;
+        velocity.y = 0;
+        falling = false;
+    }
 }
 
 void Shape::render()
