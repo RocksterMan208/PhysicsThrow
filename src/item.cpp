@@ -36,13 +36,13 @@ void Shape::update(Vector2 &mouse, float &gravity, Rectangle floor)
     {
         pos.x = mouse.x - dragOffset.x;
         pos.y = mouse.y - dragOffset.y;
+        velocity = {0,0};
     }
 
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
     {
         dragging = false;
         falling = true;
-        velocity = {0,0};
     }
 
     Rectangle colBox = {pos.x,pos.y,playerSize,playerSize};
