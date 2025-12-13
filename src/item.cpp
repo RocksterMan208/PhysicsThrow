@@ -84,10 +84,12 @@ void Shape::getPos(Vector2 textPos, float fontSize, Color textColor)
 
 void Shape::reset()
 {
-    if (IsKeyPressed(KEY_R))
-    {
-        pos = originalPos;
-        velocity = {0,0};
-        grabbed = false;
-    }
+    pos = originalPos;
+    velocity = {0,0};
+    grabbed = false;
+}
+
+bool Shape::isHoveredOver()
+{
+    
 }

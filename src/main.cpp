@@ -1,9 +1,11 @@
 #include <iostream>
+#include <vector>
 
 #include "raylib.h"
 #include "raymath.h"
 
 #include "item.hpp"
+#include "ui.hpp"
 
 int main()
 {
@@ -14,26 +16,38 @@ int main()
 
     std::string objects = {"Box"};
 
-    Rectangle floor = {0,520,800,80};
+    Rectangle floor = {0,screenHeight-80,screenWidth,80};
 
 
     InitWindow(screenWidth, screenHeight, "ThrowPhysics");
-    SetTargetFPS(120);
+    SetTargetFPS(60);
 
-    Shape Box(100,100,size, RED);
+    std::vector<Shape> shapes;
+
+    shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size,RED);
+
+    Button resetBtn(10,20,120,40,"Reset");
+    Button spawnBtn(10,70,130,40,"Spawn Box");
 
     while (!WindowShouldClose())
     {
-        Box.update(gravity,floor);
+
+        if (spawnBtn.clicked()) shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size,RED);
+
+
+        for (auto& object : shapes) object.update(gravity, floor);
+
+        if (resetBtn.clicked()) for (auto& object : shapes) object.reset();
 
         BeginDrawing();
         ClearBackground(WHITE);
 
+        for (auto& object : shapes) object.render();
+
         DrawRectangleRec(floor,PURPLE);
 
-        Box.render();
-        Box.reset();
-        Box.getPos({0,0},20,BLACK);
+        resetBtn.draw();
+        spawnBtn.draw();
 
         EndDrawing();
     }

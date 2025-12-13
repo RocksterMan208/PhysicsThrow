@@ -32,4 +32,6 @@ class Shape
     void getPos(Vector2 textPos, float fontSize, Color textColor);
 
     void reset();
+
+    bool isHoveredOver();
 };
