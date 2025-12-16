@@ -26,10 +26,20 @@ sudo pacman -S g++
 sudo pacman -S raylib
 ```
 
-If you are on a Debian based Linux (e.g Ubuntu):
+If you are on a Debian based Linux:
+
+For Ubuntu do:
+
 ```
 sudo apt install g++
 sudo apt install libraylib-dev
+```
+
+For Fedora do:
+
+```
+sudo dnf install g++
+sudo dnf install libraylib-dev
 ```
 ## Now, whilst in the folder:
 There is a makefile already inside of the folder, so it should be easy to run.
