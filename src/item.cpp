@@ -8,9 +8,14 @@ Shape::Shape(float x, float y, float size, Color color)
     originalPos = {x, y};
 }
 
+// ------------------------------------------------------------
+// end of constructor
+// ------------------------------------------------------------
+
 void Shape::update(float &gravity, Rectangle floor)
 {
     Rectangle playerRec = {pos.x, pos.y, playerSize, playerSize};
+    onGround = false;
 
     float dt = GetFrameTime();
     
@@ -54,22 +59,12 @@ void Shape::update(float &gravity, Rectangle floor)
     {
         pos.y = floor.y - playerSize;
         velocity.y = 0;
-
-        float friction = 2000;
-        
-        if (velocity.x > 0)
-        {
-            velocity.x -= friction * dt;
-            if (velocity.x < 0) velocity.x = 0;
-        }
-        else if (velocity.x < 0)
-        {
-            velocity.x += friction * dt;
-            if (velocity.x > 0) velocity.x = 0;
-        }
-
     }
 }
+
+// ------------------------------------------------------------
+// end of update
+// ------------------------------------------------------------
 
 void Shape::render()
 {
@@ -81,6 +76,10 @@ void Shape::getPos(Vector2 textPos, float fontSize, Color textColor)
     DrawText(TextFormat("Pos: X=%.1f Y=%.1f",pos.x,pos.y), textPos.x, textPos.y,fontSize,textColor);
 }
 
+// ------------------------------------------------------------
+// end of render
+// ------------------------------------------------------------
+
 void Shape::reset()
 {
     pos = originalPos;
@@ -88,43 +87,74 @@ void Shape::reset()
     grabbed = false;
 }
 
+// ------------------------------------------------------------
+// end of reset
+// ------------------------------------------------------------
+
 void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
+    float dt = GetFrameTime();
+
+    // resolving x collisions and applying them.
+    
     for (size_t i = 0; i < shapes.size(); i++)
     {
-        Shape& upper = shapes[i];
-
-        if (upper.velocity.y <= 0)
-            continue;
-
-        Rectangle upperRect = {
-            upper.pos.x, upper.pos.y,
-            upper.playerSize, upper.playerSize
-        };
+        
+        Shape& current = shapes[i];
+        Rectangle currentRec = {current.pos.x, current.pos.y, current.playerSize, current.playerSize};
 
         for (size_t j = 0; j < shapes.size(); j++)
         {
             if (i == j) continue;
 
-            Shape& lower = shapes[j];
+            Shape& other = shapes[j];
+            Rectangle otherRec = {other.pos.x, other.pos.y, other.playerSize, other.playerSize};
 
-            Rectangle lowerRect = {
-                lower.pos.x, lower.pos.y,
-                lower.playerSize, lower.playerSize
-            };
-
-            if (!CheckCollisionRecs(upperRect, lowerRect))
-                continue;
-
-            if (upper.pos.y < lower.pos.y)
+        if (CheckCollisionRecs(currentRec, otherRec))
+        {
+            if (current.velocity.y > 0 && current.pos.y < other.pos.y)
             {
-                // positional correction
-                upper.pos.y = lower.pos.y - upper.playerSize;
-
-                // momentum transfer (equal mass)
-                lower.velocity.y += upper.velocity.y;
-                upper.velocity.y = 0;
+                current.pos.y = other.pos.y - current.playerSize;
+                current.velocity.y = 0;
+                current.onGround = true;
             }
         }
     }
 }
+    
+    // resolving x collisions and apllying them
+
+    for (size_t i = 0; i < shapes.size(); i++)
+    {
+
+        Shape& current = shapes[i];
+        Rectangle currentRec = {current.pos.x, current.pos.y, current.playerSize, current.playerSize};
+
+        for (size_t j = 0; j < shapes.size(); j++)
+        {
+            if (i==j) continue;
+
+            Shape& other = shapes[j];
+            Rectangle otherRec = {other.pos.x, other.pos.y, other.playerSize, other.playerSize};
+
+            if (!CheckCollisionRecs(currentRec, otherRec)) continue;
+            
+            if (current.velocity.x > 0 && current.pos.x < other.pos.x)
+            {
+                current.pos.x = other.pos.x - current.playerSize;
+                current.velocity.x = 0;
+            }
+
+            if (current.velocity.x < 0 && current.pos.x > other.pos.x)
+            {
+                current.pos.x = other.pos.x + current.playerSize;
+                current.velocity.x = 0;
+            }
+        }
+    }
+}
+
+// ------------------------------------------------------------
+// end of resloveCollisions
+// ------------------------------------------------------------
+

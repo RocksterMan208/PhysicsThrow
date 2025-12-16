@@ -37,7 +37,7 @@ int main()
 
         Shape::resolveCollisions(shapes);
 
-        if (resetBtn.clicked()) for (auto& object : shapes) object.reset();
+        if (resetBtn.clicked()) for (auto& object : shapes) shapes.clear();
 
         BeginDrawing();
         ClearBackground(WHITE);

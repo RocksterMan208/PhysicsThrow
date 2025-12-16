@@ -18,6 +18,8 @@ class Shape
     Vector2 mouse;
     
     bool dragging = false;
+    bool onGround = false;
+    
     Vector2 dragOffset;
     
     Vector2 velocity = {0,0};
