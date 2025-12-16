@@ -23,7 +23,6 @@ void Shape::update(float &gravity, Rectangle floor)
         pos.x += velocity.x * dt;
     }
 
-
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
         if (CheckCollisionPointRec(mouse, playerRec))
@@ -89,7 +88,43 @@ void Shape::reset()
     grabbed = false;
 }
 
-bool Shape::isHoveredOver()
+void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
-    
+    for (size_t i = 0; i < shapes.size(); i++)
+    {
+        Shape& upper = shapes[i];
+
+        if (upper.velocity.y <= 0)
+            continue;
+
+        Rectangle upperRect = {
+            upper.pos.x, upper.pos.y,
+            upper.playerSize, upper.playerSize
+        };
+
+        for (size_t j = 0; j < shapes.size(); j++)
+        {
+            if (i == j) continue;
+
+            Shape& lower = shapes[j];
+
+            Rectangle lowerRect = {
+                lower.pos.x, lower.pos.y,
+                lower.playerSize, lower.playerSize
+            };
+
+            if (!CheckCollisionRecs(upperRect, lowerRect))
+                continue;
+
+            if (upper.pos.y < lower.pos.y)
+            {
+                // positional correction
+                upper.pos.y = lower.pos.y - upper.playerSize;
+
+                // momentum transfer (equal mass)
+                lower.velocity.y += upper.velocity.y;
+                upper.velocity.y = 0;
+            }
+        }
+    }
 }

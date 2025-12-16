@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 
 #include "raylib.h"
 #include "raymath.h"
@@ -33,5 +34,5 @@ class Shape
 
     void reset();
 
-    bool isHoveredOver();
+    static void resolveCollisions(std::vector<Shape>& shapes);
 };

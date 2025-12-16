@@ -14,8 +14,6 @@ int main()
     float size = 40;
     float gravity = 981;
 
-    std::string objects = {"Box"};
-
     Rectangle floor = {0,screenHeight-80,screenWidth,80};
 
 
@@ -36,6 +34,8 @@ int main()
 
 
         for (auto& object : shapes) object.update(gravity, floor);
+
+        Shape::resolveCollisions(shapes);
 
         if (resetBtn.clicked()) for (auto& object : shapes) object.reset();
 
