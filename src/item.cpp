@@ -59,6 +59,7 @@ void Shape::update(float &gravity, Rectangle floor)
     {
         pos.y = floor.y - playerSize;
         velocity.y = 0;
+        doFriction(true, 1);
     }
 }
 
@@ -91,6 +92,32 @@ void Shape::reset()
 // end of reset
 // ------------------------------------------------------------
 
+void Shape::doFriction(bool doFriction, float friction)
+{
+    if (doFriction)
+    {
+        float dt = GetFrameTime();
+
+        if (velocity.x > 0)
+        {
+            velocity.x -= friction * dt * 4250; // this multiplication by 5000 is to make a friction of 1 make it 500 units :)
+
+            if (velocity.x < 0) velocity.x = 0;
+        }
+        else if (velocity.x < 0)
+        {
+            velocity.x += friction * dt * 4250;
+            
+            if (velocity.x > 0) velocity.x = 0;
+        }
+    }
+
+}
+
+// ------------------------------------------------------------
+// end of doFriction
+// ------------------------------------------------------------
+
 void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
     float dt = GetFrameTime();
@@ -116,7 +143,7 @@ void Shape::resolveCollisions(std::vector<Shape>& shapes)
             {
                 current.pos.y = other.pos.y - current.playerSize;
                 current.velocity.y = 0;
-                current.onGround = true;
+                current.doFriction(true, 1);
             }
         }
     }
