@@ -123,7 +123,7 @@ void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
     for (float i = 0; i < shapes.size(); i++)
     {
-        for (float j = 0; j < shapes.size(); j++)
+        for (float j = i + 1; j < shapes.size(); j++)
         {
             shapes[i].resolveCollisionsWith(shapes[j]);
         }
@@ -145,7 +145,7 @@ void Shape::resolveCollisionsWith(Shape& other)
 
     if (horizontal)
     {
-        float push = overX * 0.5;
+        float push = overX * 0.1;
 
         if (pos.x < other.pos.x)
         {
@@ -160,16 +160,21 @@ void Shape::resolveCollisionsWith(Shape& other)
     }
     else
     {
-        float push = overY * 0.5;
+        float push = overY * 0.1;
 
         if (pos.y < other.pos.y)
         {
             pos.y -= push;
             other.pos.y += push;
+
+            doFriction(true, 1);
         }
-        else{
+        else
+        {
             pos.y += push;
             other.pos.y -= push;
+
+            other.doFriction(true, 1);
         }
     }
 
