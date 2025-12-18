@@ -59,6 +59,7 @@ void Shape::update(float &gravity, Rectangle floor)
     {
         pos.y = floor.y - playerSize;
         velocity.y = 0;
+
         doFriction(true, 1);
     }
 }
@@ -100,7 +101,7 @@ void Shape::doFriction(bool doFriction, float friction)
 
         if (velocity.x > 0)
         {
-            velocity.x -= friction * dt * 4250; // this multiplication by 5000 is to make a friction of 1 make it 500 units :)
+            velocity.x -= friction * dt * 4250; // this multiplication by 4250 is to make a friction of 1 make it 4250 units :)
 
             if (velocity.x < 0) velocity.x = 0;
         }
@@ -118,10 +119,22 @@ void Shape::doFriction(bool doFriction, float friction)
 // end of doFriction
 // ------------------------------------------------------------
 
+void Shape::resolveCollisionsWith(Shape& other)
+{
+    float overX = (pos.x < other.pos.x) ? (pos.x + playerSize) - other.pos.x : (other.pos.x + other.playerSize) - pos.x;
+    float overY = (pos.y < other.pos.y) ? (pos.y + playerSize) - other.pos.y : (other.pos.y + other.playerSize) - pos.y;
+
+}
+
+
+// ------------------------------------------------------------
+// end of resolveCollisionsWith
+// ------------------------------------------------------------
+
 void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
     float dt = GetFrameTime();
-
+    
     // resolving x collisions and applying them.
     
     for (size_t i = 0; i < shapes.size(); i++)
@@ -169,12 +182,14 @@ void Shape::resolveCollisions(std::vector<Shape>& shapes)
             if (current.velocity.x > 0 && current.pos.x < other.pos.x)
             {
                 current.pos.x = other.pos.x - current.playerSize;
+                other.velocity.x = current.velocity.x;
                 current.velocity.x = 0;
             }
 
             if (current.velocity.x < 0 && current.pos.x > other.pos.x)
             {
                 current.pos.x = other.pos.x + current.playerSize;
+                other.velocity.x = current.velocity.x;
                 current.velocity.x = 0;
             }
         }
@@ -184,4 +199,3 @@ void Shape::resolveCollisions(std::vector<Shape>& shapes)
 // ------------------------------------------------------------
 // end of resloveCollisions
 // ------------------------------------------------------------
-

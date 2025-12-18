@@ -32,7 +32,6 @@ int main()
 
         if (spawnBtn.clicked()) shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size,RED);
 
-
         for (auto& object : shapes) object.update(gravity, floor);
 
         Shape::resolveCollisions(shapes);
@@ -48,6 +47,7 @@ int main()
 
         resetBtn.draw();
         spawnBtn.draw();
+
 
         EndDrawing();
     }

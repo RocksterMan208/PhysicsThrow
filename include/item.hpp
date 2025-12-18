@@ -38,5 +38,7 @@ class Shape
 
     void doFriction(bool doFriction, float friction);
 
+    void resolveCollisionsWith(Shape& other);
+    
     static void resolveCollisions(std::vector<Shape>& shapes);
 };
