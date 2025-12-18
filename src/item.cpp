@@ -2,7 +2,14 @@
 
 Shape::Shape(float x, float y, float size, Color color)
 {
-    playerColor = color;
+    playerColor = 
+    {
+        (unsigned char)GetRandomValue(50,255),
+        (unsigned char)GetRandomValue(50,255),
+        (unsigned char)GetRandomValue(50,255),
+        255
+    };
+    
     pos = {x, y};
     playerSize = size;
     originalPos = {x, y};

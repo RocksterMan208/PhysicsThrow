@@ -9,8 +9,8 @@
 
 int main()
 {
-    float screenWidth = 800;
-    float screenHeight = 600;
+    float screenWidth = 2560;
+    float screenHeight = 1440;
     float size = 40;
     float gravity = 981;
 
