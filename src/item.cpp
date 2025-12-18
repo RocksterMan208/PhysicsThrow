@@ -119,83 +119,69 @@ void Shape::doFriction(bool doFriction, float friction)
 // end of doFriction
 // ------------------------------------------------------------
 
-void Shape::resolveCollisionsWith(Shape& other)
-{
-    float overX = (pos.x < other.pos.x) ? (pos.x + playerSize) - other.pos.x : (other.pos.x + other.playerSize) - pos.x;
-    float overY = (pos.y < other.pos.y) ? (pos.y + playerSize) - other.pos.y : (other.pos.y + other.playerSize) - pos.y;
-
-}
-
-
-// ------------------------------------------------------------
-// end of resolveCollisionsWith
-// ------------------------------------------------------------
-
 void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
-    float dt = GetFrameTime();
-    
-    // resolving x collisions and applying them.
-    
-    for (size_t i = 0; i < shapes.size(); i++)
+    for (float i = 0; i < shapes.size(); i++)
     {
-        
-        Shape& current = shapes[i];
-        Rectangle currentRec = {current.pos.x, current.pos.y, current.playerSize, current.playerSize};
-
-        for (size_t j = 0; j < shapes.size(); j++)
+        for (float j = 0; j < shapes.size(); j++)
         {
-            if (i == j) continue;
-
-            Shape& other = shapes[j];
-            Rectangle otherRec = {other.pos.x, other.pos.y, other.playerSize, other.playerSize};
-
-        if (CheckCollisionRecs(currentRec, otherRec))
-        {
-            if (current.velocity.y > 0 && current.pos.y < other.pos.y)
-            {
-                current.pos.y = other.pos.y - current.playerSize;
-                current.velocity.y = 0;
-                current.doFriction(true, 1);
-            }
-        }
-    }
-}
-    
-    // resolving x collisions and apllying them
-
-    for (size_t i = 0; i < shapes.size(); i++)
-    {
-
-        Shape& current = shapes[i];
-        Rectangle currentRec = {current.pos.x, current.pos.y, current.playerSize, current.playerSize};
-
-        for (size_t j = 0; j < shapes.size(); j++)
-        {
-            if (i==j) continue;
-
-            Shape& other = shapes[j];
-            Rectangle otherRec = {other.pos.x, other.pos.y, other.playerSize, other.playerSize};
-
-            if (!CheckCollisionRecs(currentRec, otherRec)) continue;
-            
-            if (current.velocity.x > 0 && current.pos.x < other.pos.x)
-            {
-                current.pos.x = other.pos.x - current.playerSize;
-                other.velocity.x = current.velocity.x;
-                current.velocity.x = 0;
-            }
-
-            if (current.velocity.x < 0 && current.pos.x > other.pos.x)
-            {
-                current.pos.x = other.pos.x + current.playerSize;
-                other.velocity.x = current.velocity.x;
-                current.velocity.x = 0;
-            }
+            shapes[i].resolveCollisionsWith(shapes[j]);
         }
     }
 }
 
 // ------------------------------------------------------------
 // end of resloveCollisions
+// ------------------------------------------------------------
+
+void Shape::resolveCollisionsWith(Shape& other)
+{
+    float overX = (pos.x < other.pos.x) ? (pos.x + playerSize) - other.pos.x : (other.pos.x + other.playerSize) - pos.x;
+    float overY = (pos.y < other.pos.y) ? (pos.y + playerSize) - other.pos.y : (other.pos.y + other.playerSize) - pos.y;
+
+    if (overX <= 0 || overY <= 0) return;
+
+    bool horizontal = overX < overY;
+
+    if (horizontal)
+    {
+        float push = overX * 0.5;
+
+        if (pos.x < other.pos.x)
+        {
+            pos.x -= push;
+            other.pos.x += push;
+        }
+        else
+        {
+            pos.x += push;
+            other.pos.x -= push;
+        }
+    }
+    else
+    {
+        float push = overY * 0.5;
+
+        if (pos.y < other.pos.y)
+        {
+            pos.y -= push;
+            other.pos.y += push;
+        }
+        else{
+            pos.y += push;
+            other.pos.y -= push;
+        }
+    }
+
+    float& v1 = horizontal ? velocity.x : velocity.y;
+    float& v2 = horizontal ? other.velocity.x : other.velocity.y;
+
+    float temp = v1;
+    v1 = v2;
+    v2 = temp;
+}
+
+
+// ------------------------------------------------------------
+// end of resolveCollisionsWith
 // ------------------------------------------------------------
