@@ -17,6 +17,12 @@ I am planning on adding some sliders for different things, an example being grav
 
 **(No current recordings)**
 
+There are some keybinds for basic functions:
+
+- F11 for fullscreen toggle.
+- S to spawn a square.
+- R to reset.
+
 # If you want to build it for yourself:
 (You do need some dependencies)
 

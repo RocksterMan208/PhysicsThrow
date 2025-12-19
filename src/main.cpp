@@ -13,6 +13,7 @@ int main()
     float screenHeight = 600;
     float size = 40;
     float gravity = 981;
+    bool borderless = false;
 
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -39,6 +40,29 @@ int main()
 
 
         if (spawnBtn.clicked() || IsKeyPressed(KEY_S)) shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size);
+
+        if (IsKeyPressed(KEY_F11))
+        {
+            borderless = !borderless;
+
+            if (borderless)
+            {
+                SetWindowState(FLAG_WINDOW_UNDECORATED);
+                
+                int monitor = GetCurrentMonitor();
+                
+                float width = GetMonitorWidth(monitor);
+                float height = GetMonitorHeight(monitor);
+
+                SetWindowPosition(0,0);
+                SetWindowSize(width, height);
+            }
+            else
+            {
+                ClearWindowState(FLAG_WINDOW_UNDECORATED);
+                SetWindowSize(800,600);
+            }
+        }
 
         for (auto& object : shapes) object.update(gravity, floor);
 
