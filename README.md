@@ -15,7 +15,7 @@ I am planning on adding some sliders for different things, an example being grav
 
 # Here's a current snippet of the project
 
-**(No current recordings)**
+https://github.com/user-attachments/assets/87e466e8-6552-4e76-924f-dc5fe83cd661
 
 There are some keybinds for basic functions:
 
