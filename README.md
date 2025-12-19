@@ -5,16 +5,17 @@ By the end of this project, I aim to have an application where you can draw poly
 
 # Where are we now?
 
-I am currently developing a way to have interactions with shapes which are on the foreground (should be basic stuff I know).
-
-I will then use this to make the basics of a rotating square which would then later be used to create a mouse based,
-center of mass based rotation system.
+I have just created a realistic(-ish) momentum system but it has a few issues i will have to iron out (bare with me)
 
 I am also working on a colour creation system, meaning that you can create a shape with a specified colour.
+(For now this is just random colours)
+
+I am planning on adding some sliders for different things, an example being gravity and shape colour when created.
+
 
 # Here's a current snippet of the project
 
-https://github.com/user-attachments/assets/2b9ec511-ad66-4f72-8087-c00c1d6982c2
+**(No current recordings)**
 
 # If you want to build it for yourself:
 (You do need some dependencies)

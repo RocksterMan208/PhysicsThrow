@@ -1,6 +1,6 @@
 #include "item.hpp"
 
-Shape::Shape(float x, float y, float size, Color color)
+Shape::Shape(float x, float y, float size)
 {
     playerColor = 
     {
@@ -128,11 +128,16 @@ void Shape::doFriction(bool doFriction, float friction)
 
 void Shape::resolveCollisions(std::vector<Shape>& shapes)
 {
-    for (float i = 0; i < shapes.size(); i++)
+    const float numberIterations = 1; // note: changing will make the collisions work better, just amplifies "compression" issue.
+    
+    for (int k = 0; k < numberIterations; k++)
     {
-        for (float j = i + 1; j < shapes.size(); j++)
+        for (float i = 0; i < shapes.size(); i++)
         {
-            shapes[i].resolveCollisionsWith(shapes[j]);
+            for (float j = i + 1; j < shapes.size(); j++)
+            {
+                shapes[i].resolveCollisionsWith(shapes[j]);
+            }
         }
     }
 }
@@ -152,7 +157,7 @@ void Shape::resolveCollisionsWith(Shape& other)
 
     if (horizontal)
     {
-        float push = overX * 0.1;
+        float push = overX * .5;
 
         if (pos.x < other.pos.x)
         {
@@ -167,7 +172,7 @@ void Shape::resolveCollisionsWith(Shape& other)
     }
     else
     {
-        float push = overY * 0.1;
+        float push = overY * .5;
 
         if (pos.y < other.pos.y)
         {
@@ -192,6 +197,7 @@ void Shape::resolveCollisionsWith(Shape& other)
     v1 = v2;
     v2 = temp;
 }
+
 
 
 // ------------------------------------------------------------

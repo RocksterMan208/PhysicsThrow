@@ -9,8 +9,8 @@
 
 int main()
 {
-    float screenWidth = 2560;
-    float screenHeight = 1440;
+    float screenWidth = 800;
+    float screenHeight = 600;
     float size = 40;
     float gravity = 981;
 
@@ -22,7 +22,7 @@ int main()
 
     std::vector<Shape> shapes;
 
-    shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size,RED);
+    // shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size);
 
     Button resetBtn(10,20,120,40,"Reset");
     Button spawnBtn(10,70,130,40,"Spawn Box");
@@ -30,7 +30,7 @@ int main()
     while (!WindowShouldClose())
     {
 
-        if (spawnBtn.clicked()) shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size,RED);
+        if (spawnBtn.clicked()) shapes.emplace_back(screenWidth/2-size,screenHeight/2-size,size);
 
         for (auto& object : shapes) object.update(gravity, floor);
 

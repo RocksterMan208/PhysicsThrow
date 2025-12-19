@@ -26,7 +26,7 @@ class Shape
     
     bool grabbed = false;
 
-    Shape(float x, float y, float size, Color color);
+    Shape(float x, float y, float size);
 
     void update(float &gravity, Rectangle floor);
 
